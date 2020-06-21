@@ -5,7 +5,7 @@ import SwiftUI
 /// - Tag: root_layout
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        GameBoardView()
     }
 }
 
