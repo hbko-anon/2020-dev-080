@@ -62,18 +62,43 @@ class GameRulesProvider {
     
     /// Checks if the game is finished or not.
     /// - Returns: `true` if the game is over and no more moves are allowed or `false` if a next move is possible
-    static func isGameOver(tiles: [GameTile]) -> Bool {
+    static func isGameOver(tiles: [GameTile]) -> GameWinner {
         
+        if let winner = getWinner(tiles: tiles) {
+            return winner
+        }
+        
+        if !tiles.contains(where: {$0.position == .empty}) {
+            // all tiles are occupied
+            return GameWinner.draw
+        }
+        
+        // if we are here, the game is still on
+        return GameWinner.none
+    }
+    
+    static func getWinner(tiles: [GameTile]) -> GameWinner? {
         for winCombo in WinCombinations {
             // get the current tile state on the win positions
             let stateForCombo = winCombo.map({tiles[$0].position})
-            // if all tiles are occupied by the same player the game is over
-            if stateForCombo.dropFirst().allSatisfy({$0 != .empty && $0 == stateForCombo.first}) {
-                return true
+            
+            // we have a winner if all tiles are occupied by the same player
+            if let firstPlayer = stateForCombo.first {
+                if stateForCombo.allSatisfy({$0 != .empty && $0 == firstPlayer}) {
+                    switch firstPlayer {
+                    case .playerX:
+                        return GameWinner.playerX
+                    case .playerO:
+                        return GameWinner.playerO
+                    default:
+                        break
+                    }
+                }
             }
         }
         
-        return !tiles.contains(where: {$0.position == .empty})
+        // no winner
+        return nil
     }
     
     enum GameRulesError: Error {

@@ -5,6 +5,7 @@ import Foundation
 class GameBoard: ObservableObject {
     @Published var tiles: [GameTile]
     @Published var gameOver: Bool = false
+    @Published var winner: GameWinner = .none
 
     private var lastPlayer: PositionState? = nil
     
@@ -18,7 +19,11 @@ class GameBoard: ObservableObject {
         }
         self.tiles[position].position = state
         self.lastPlayer = state
-        self.gameOver = GameRulesProvider.isGameOver(tiles: self.tiles)
+        
+        let gameWinnerState = GameRulesProvider.isGameOver(tiles: self.tiles)
+        
+        self.gameOver = gameWinnerState != .none
+        self.winner = gameWinnerState
     }
     
     /// Returns `true` if the `GameBoard` is currently empty or `false`, if the the `GameBoard` has tiles with state other than `PositionState.empty`

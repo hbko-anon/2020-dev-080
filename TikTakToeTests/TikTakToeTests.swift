@@ -180,6 +180,7 @@ class TikTakToeTests: XCTestCase {
         
         // assert
         XCTAssertTrue(board.gameOver, "After 9 valid moves the game must be over.")
+        XCTAssertEqual(board.winner, GameWinner.draw, "All nine squares are filled and neither player has three in a row, the game is a draw.")
     }
     
     func testGameBoard_Game_not_over_after_4_valid_moves() throws {
@@ -202,6 +203,7 @@ class TikTakToeTests: XCTestCase {
         
         // assert
         XCTAssertFalse(board.gameOver, "After \(moves) valid moves the game is not over yet.")
+        XCTAssertEqual(board.winner, GameWinner.none)
     }
     
     func testGameBoard_Gameover_when_player_draws_row() throws {
@@ -225,6 +227,7 @@ class TikTakToeTests: XCTestCase {
         
         // assert
         XCTAssertTrue(board.gameOver, "Game must be over because row of 3 Xs.")
+        XCTAssertEqual(board.winner, GameWinner.playerX)
     }
     
     func testGameBoard_Gameover_when_player_draws_column() throws {
@@ -250,6 +253,7 @@ class TikTakToeTests: XCTestCase {
         
         // assert
         XCTAssertTrue(board.gameOver, "Game must be over because column of 3 Os.")
+        XCTAssertEqual(board.winner, GameWinner.playerO)
     }
     
     func testGameBoard_Gameover_when_player_draws_diagonal() throws {
@@ -276,5 +280,6 @@ class TikTakToeTests: XCTestCase {
         
         // assert
         XCTAssertTrue(board.gameOver, "Game must be over because diagonal of 3 Xs.")
+        XCTAssertEqual(board.winner, GameWinner.playerX)
     }
 }
