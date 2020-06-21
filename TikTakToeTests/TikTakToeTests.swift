@@ -204,4 +204,77 @@ class TikTakToeTests: XCTestCase {
         XCTAssertFalse(board.gameOver, "After \(moves) valid moves the game is not over yet.")
     }
     
+    func testGameBoard_Gameover_when_player_draws_row() throws {
+        // arrange
+        let board = GameBoard()
+        
+        // act
+        /*
+         X X X
+         O O -
+         - - -
+        */
+        board.moveAt(position: 0, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 3, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 4, state: Self.ValidSecondPlayer)
+        
+        XCTAssertFalse(board.gameOver)
+        board.moveAt(position: 2, state: Self.ValidFirstPlayer)
+        
+        // assert
+        XCTAssertTrue(board.gameOver, "Game must be over because row of 3 Xs.")
+    }
+    
+    func testGameBoard_Gameover_when_player_draws_column() throws {
+        // arrange
+        let board = GameBoard()
+        
+        // act
+        /*
+         O X X
+         O - X
+         O - -
+        */
+        board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 0, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 2, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 3, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 5, state: Self.ValidFirstPlayer)
+        
+        XCTAssertFalse(board.gameOver)
+        board.moveAt(position: 6, state: Self.ValidSecondPlayer)
+        
+        // assert
+        XCTAssertTrue(board.gameOver, "Game must be over because column of 3 Os.")
+    }
+    
+    func testGameBoard_Gameover_when_player_draws_diagonal() throws {
+        // arrange
+        let board = GameBoard()
+        
+        // act
+        /*
+         O X X
+         O X O
+         X - -
+        */
+        board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 0, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 2, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 5, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 4, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 3, state: Self.ValidSecondPlayer)
+        
+        XCTAssertFalse(board.gameOver)
+        board.moveAt(position: 6, state: Self.ValidFirstPlayer)
+        
+        // assert
+        XCTAssertTrue(board.gameOver, "Game must be over because diagonal of 3 Xs.")
+    }
 }

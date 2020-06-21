@@ -9,6 +9,18 @@ class GameRulesProvider {
     /// e.g. a 3x3 board has 9 tiles.
     static let BoardSize: Int = 9
     
+    /// Defines the possible combination of positions for a player to win the game.
+    static let WinCombinations: [[Int]] = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
+    
     
     /// Checks if a given move is valid or not.
     /// - Returns: `true` if the move is allowed or `false` if the move is illegal
@@ -51,6 +63,16 @@ class GameRulesProvider {
     /// Checks if the game is finished or not.
     /// - Returns: `true` if the game is over and no more moves are allowed or `false` if a next move is possible
     static func isGameOver(tiles: [GameTile]) -> Bool {
+        
+        for winCombo in WinCombinations {
+            // get the current tile state on the win positions
+            let stateForCombo = winCombo.map({tiles[$0].position})
+            // if all tiles are occupied by the same player the game is over
+            if stateForCombo.dropFirst().allSatisfy({$0 != .empty && $0 == stateForCombo.first}) {
+                return true
+            }
+        }
+        
         return !tiles.contains(where: {$0.position == .empty})
     }
     
