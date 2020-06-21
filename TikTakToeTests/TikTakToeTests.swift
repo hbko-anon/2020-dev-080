@@ -282,4 +282,59 @@ class TikTakToeTests: XCTestCase {
         XCTAssertTrue(board.gameOver, "Game must be over because diagonal of 3 Xs.")
         XCTAssertEqual(board.winner, GameWinner.playerX)
     }
+    
+    func testGameAiPlayer_Finds_next_position() throws {
+        // arrange
+        let board = GameBoard()
+        /*
+         O X X
+         O X O
+         - O X
+        */
+        board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 0, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 2, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 5, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 4, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 3, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 8, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 7, state: Self.ValidSecondPlayer)
+        
+        // act
+        let nextPosition = GameAiPlayer.nextMovePosition(tiles: board.tiles)
+        
+        // assert
+        XCTAssertEqual(nextPosition, 6, "The AI player can choose the next available slot")
+    }
+    
+    func testGameAiPlayer_Checks_if_board_is_full() throws {
+        // arrange
+        let board = GameBoard()
+        /*
+         O X X
+         O X O
+         - O X
+        */
+        board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 0, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 2, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 5, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 4, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 3, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 8, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 7, state: Self.ValidSecondPlayer)
+        board.moveAt(position: 6, state: Self.ValidFirstPlayer)
+        
+        // act
+        let nextPosition = GameAiPlayer.nextMovePosition(tiles: board.tiles)
+        
+        // assert
+        XCTAssertNil(nextPosition, "There is no room for AI player to move")
+    }
 }
