@@ -92,4 +92,31 @@ class TikTakToeTests: XCTestCase {
         // assert
         XCTAssertEqual(board.tiles[firstMoveAtPosition].position, PositionState.empty, "If playerO tries to play first, the board state should remain unchanged")
     }
+    
+    func testGameBoard_Players_play_only_once() throws {
+        // arrange
+        let board = GameBoard()
+        
+        // act
+        // ValidFirstPlayer tries to play twice in a row
+        board.moveAt(position: 0, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        
+        // assert
+        XCTAssertEqual(board.tiles[0].position, Self.ValidFirstPlayer, "Player's first move must be valid")
+        XCTAssertEqual(board.tiles[1].position, PositionState.empty, "If the same player tries to play twice, the board state should remain unchanged")
+    }
+    
+    func testGameBoard_Players_must_alternate() throws {
+        // arrange
+        let board = GameBoard()
+        
+        // act
+        board.moveAt(position: 0, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 1, state: Self.ValidSecondPlayer)
+        
+        // assert
+        XCTAssertEqual(board.tiles[0].position, Self.ValidFirstPlayer, "Player's first move must be valid")
+        XCTAssertEqual(board.tiles[1].position, Self.ValidSecondPlayer, "Another players's move must be valid")
+    }
 }

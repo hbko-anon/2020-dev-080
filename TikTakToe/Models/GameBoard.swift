@@ -10,6 +10,8 @@ class GameBoard: ObservableObject {
     /// e.g. a 3x3 board has 9 tiles.
     static let BoardSize: Int = 9
     
+    private var lastPlayer: PositionState? = nil
+    
     init() {
         self.tiles = Array(0...Self.BoardSize-1).map({_ in GameTile()})
     }
@@ -23,7 +25,12 @@ class GameBoard: ObservableObject {
             os_log("Invalid start player", log: .game, type: .debug)
             return
         }
+        if state == lastPlayer {
+            os_log("Player attempts to play twice in a row", log: .game, type: .debug)
+            return
+        }
         self.tiles[position].position = state
+        self.lastPlayer = state
     }
     
     /// Returns `true` if the `GameBoard` is currently empty or `false`, if the the `GameBoard` has tiles with state other than `PositionState.empty`
