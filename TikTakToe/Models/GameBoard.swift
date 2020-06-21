@@ -1,6 +1,7 @@
 //
 
 import Foundation
+import os.log
 
 class GameBoard: ObservableObject {
     @Published var tiles: [GameTile]
@@ -15,9 +16,11 @@ class GameBoard: ObservableObject {
     
     func moveAt(position: Int, state: PositionState) {
         if self.tiles[position].position != .empty {
+            os_log("Attempt to play at non-empty position %d", log: .game, type: .debug, position)
             return
         }
         if state != .playerX && self.isEmpty() {
+            os_log("Invalid start player", log: .game, type: .debug)
             return
         }
         self.tiles[position].position = state
