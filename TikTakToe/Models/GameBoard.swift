@@ -27,17 +27,6 @@ class GameBoard: ObservableObject {
     
     /// Returns the alternate player. For example, the alternate of player X is player O and vis-versa.
     func alternate(player: PositionState) throws -> PositionState {
-        switch player {
-        case .empty:
-            throw GameBoardError.gameRulesError
-        case .playerX:
-            return .playerO
-        case .playerO:
-            return .playerX
-        }
-    }
-    
-    enum GameBoardError: Error {
-        case gameRulesError
+        return try GameRulesProvider.alternate(player: player)
     }
 }

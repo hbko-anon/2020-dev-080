@@ -35,4 +35,20 @@ class GameRulesProvider {
     static func isEmpty(tiles: [GameTile]) -> Bool {
         return !tiles.contains(where: {$0.position != .empty})
     }
+    
+    /// Returns the alternate player. For example, the alternate of player X is player O and vis-versa.
+    static func alternate(player: PositionState) throws -> PositionState {
+        switch player {
+        case .empty:
+            throw GameRulesError.rulesViolation
+        case .playerX:
+            return .playerO
+        case .playerO:
+            return .playerX
+        }
+    }
+    
+    enum GameRulesError: Error {
+        case rulesViolation
+    }
 }
