@@ -158,7 +158,7 @@ class TikTakToeTests: XCTestCase {
          X X O
          O O X
          X X O
-        */
+         */
         board.moveAt(position: 0, state: Self.ValidFirstPlayer)
         board.moveAt(position: 3, state: Self.ValidSecondPlayer)
         
@@ -209,7 +209,7 @@ class TikTakToeTests: XCTestCase {
          X X X
          O O -
          - - -
-        */
+         */
         board.moveAt(position: 0, state: Self.ValidFirstPlayer)
         board.moveAt(position: 3, state: Self.ValidSecondPlayer)
         
@@ -233,7 +233,7 @@ class TikTakToeTests: XCTestCase {
          O X X
          O - X
          O - -
-        */
+         */
         board.moveAt(position: 1, state: Self.ValidFirstPlayer)
         board.moveAt(position: 0, state: Self.ValidSecondPlayer)
         
@@ -259,7 +259,7 @@ class TikTakToeTests: XCTestCase {
          O X X
          O X O
          X - -
-        */
+         */
         board.moveAt(position: 1, state: Self.ValidFirstPlayer)
         board.moveAt(position: 0, state: Self.ValidSecondPlayer)
         
@@ -277,6 +277,29 @@ class TikTakToeTests: XCTestCase {
         XCTAssertEqual(board.winner, GameWinner.playerX)
     }
     
+    func testGameBoard_Sets_next_player_for_first_move() throws {
+        //arrange
+        let board = GameBoard()
+        
+        // act
+        let firstPlayer = board.nextPlayer()
+        
+        //assert
+        XCTAssertEqual(firstPlayer, PositionState.playerX)
+    }
+    
+    func testGameBoard_Sets_next_player_for_second_move() throws {
+        //arrange
+        let board = GameBoard()
+         board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        
+        // act
+        let firstPlayer = board.nextPlayer()
+        
+        //assert
+        XCTAssertEqual(firstPlayer, PositionState.playerO)
+    }
+    
     func testGameAiPlayer_Finds_next_position() throws {
         // arrange
         let board = GameBoard()
@@ -284,7 +307,7 @@ class TikTakToeTests: XCTestCase {
          O X X
          O X O
          - O X
-        */
+         */
         board.moveAt(position: 1, state: Self.ValidFirstPlayer)
         board.moveAt(position: 0, state: Self.ValidSecondPlayer)
         
@@ -311,7 +334,7 @@ class TikTakToeTests: XCTestCase {
          O X X
          O X O
          - O X
-        */
+         */
         board.moveAt(position: 1, state: Self.ValidFirstPlayer)
         board.moveAt(position: 0, state: Self.ValidSecondPlayer)
         

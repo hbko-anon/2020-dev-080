@@ -37,4 +37,11 @@ class GameBoard: ObservableObject {
     func alternate(player: PositionState) throws -> PositionState {
         return try GameRulesProvider.alternate(player: player)
     }
+    
+    func nextPlayer() -> PositionState {
+        if let lastPlayer = self.lastPlayer, let nextPlayer = try? self.alternate(player: lastPlayer) {
+            return nextPlayer
+        }
+        return PositionState.playerX
+    }
 }
