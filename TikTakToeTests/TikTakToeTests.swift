@@ -26,7 +26,7 @@ class TikTakToeTests: XCTestCase {
     func testGameBoard_Player_moves_at_position() throws {
         // arrange
         let board = GameBoard()
-        let moveByPlayer = PositionState.playerA
+        let moveByPlayer = PositionState.playerX
         let moveAtPosition: Int = 0
         
         XCTAssertTrue(board.tiles.count > moveAtPosition - 1, "Player move must be within the bounds of the board")
@@ -41,11 +41,11 @@ class TikTakToeTests: XCTestCase {
     func testGameBoard_Player_moves_to_empty_positions_only() throws {
         // arrange
         let board = GameBoard()
-        let firstMoveByPlayer = PositionState.playerA
+        let firstMoveByPlayer = PositionState.playerX
         let firstMoveAtPosition: Int = 0
         board.moveAt(position: firstMoveAtPosition, state: firstMoveByPlayer)
         
-        let secondMoveByPlayer = PositionState.playerB
+        let secondMoveByPlayer = PositionState.playerO
         let secondMoveAtPosition: Int = 0
         
         // act
