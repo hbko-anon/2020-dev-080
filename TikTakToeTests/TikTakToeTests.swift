@@ -8,7 +8,7 @@ class TikTakToeTests: XCTestCase {
     
     static let ValidFirstPlayer: PositionState = .playerX
     static let ValidSecondPlayer: PositionState = .playerO
-
+    
     func testGameTile_Starts_empty() throws {
         // arrange
         let tile = GameTile()
@@ -119,4 +119,40 @@ class TikTakToeTests: XCTestCase {
         XCTAssertEqual(board.tiles[0].position, Self.ValidFirstPlayer, "Player's first move must be valid")
         XCTAssertEqual(board.tiles[1].position, Self.ValidSecondPlayer, "Another players's move must be valid")
     }
+    
+    func testGameBoard_Alternates_playerX() throws {
+        // arrange
+        let board = GameBoard()
+        let startPlayer = PositionState.playerX
+        
+        // act
+        let alternateResult = try? board.alternate(player: startPlayer)
+        
+        // assert
+        XCTAssertNotNil(alternateResult)
+        XCTAssertEqual(alternateResult!, PositionState.playerO, "The alternate of playerX is playerO")
+    }
+    
+    func testGameBoard_Alternates_playerO() throws {
+        // arrange
+        let board = GameBoard()
+        let startPlayer = PositionState.playerO
+        
+        // act
+        let alternateResult = try? board.alternate(player: startPlayer)
+        
+        // assert
+        XCTAssertNotNil(alternateResult)
+        XCTAssertEqual(alternateResult!, PositionState.playerX, "The alternate of playerX is playerO")
+    }
+    
+    func testGameBoard_Cant_alternate_empty_tiles() throws {
+        // arrange
+        let board = GameBoard()
+        let startPlayer = PositionState.empty
+        
+        // assert
+        XCTAssertThrowsError(try board.alternate(player: startPlayer))
+    }
+    
 }
