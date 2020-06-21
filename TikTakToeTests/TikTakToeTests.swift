@@ -6,24 +6,20 @@ import XCTest
 /// - Tag: unit_tests
 class TikTakToeTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testGameTile_Starts_empty() throws {
+        // arrange
+        let tile = GameTile()
+        
+        // assert
+        XCTAssertEqual(tile.position, PositionState.empty, "Game tiles must start empty")
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testGameBoard_Correct_number_of_starting_tiles() throws {
+        // arrange
+        let board = GameBoard()
+        let boardSize = board.tiles.count
+        
+        // assert
+        XCTAssertEqual(boardSize, GameBoard.BoardSize, "Board must be initialized with \(GameBoard.BoardSize) tiles")
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
