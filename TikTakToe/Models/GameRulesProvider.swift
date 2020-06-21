@@ -48,6 +48,12 @@ class GameRulesProvider {
         }
     }
     
+    /// Checks if the game is finished or not.
+    /// - Returns: `true` if the game is over and no more moves are allowed or `false` if a next move is possible
+    static func isGameOver(tiles: [GameTile]) -> Bool {
+        return !tiles.contains(where: {$0.position == .empty})
+    }
+    
     enum GameRulesError: Error {
         case rulesViolation
     }

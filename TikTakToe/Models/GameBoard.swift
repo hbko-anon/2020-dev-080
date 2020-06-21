@@ -18,6 +18,7 @@ class GameBoard: ObservableObject {
         }
         self.tiles[position].position = state
         self.lastPlayer = state
+        self.gameOver = GameRulesProvider.isGameOver(tiles: self.tiles)
     }
     
     /// Returns `true` if the `GameBoard` is currently empty or `false`, if the the `GameBoard` has tiles with state other than `PositionState.empty`
