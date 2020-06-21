@@ -22,4 +22,19 @@ class TikTakToeTests: XCTestCase {
         // assert
         XCTAssertEqual(boardSize, GameBoard.BoardSize, "Board must be initialized with \(GameBoard.BoardSize) tiles")
     }
+    
+    func testGameBoard_Player_moves_at_position() throws {
+        // arrange
+        let board = GameBoard()
+        let moveByPlayer = PositionState.playerA
+        let moveAtPosition: Int = 0
+        
+        XCTAssertTrue(board.tiles.count > moveAtPosition - 1, "Player move must be within the bounds of the board")
+        
+        // act
+        board.moveAt(position: moveAtPosition, state: moveByPlayer)
+        
+        // assert
+        XCTAssertEqual(board.tiles[0].position, moveByPlayer, "Board tiles must be updated after a player move")
+    }
 }

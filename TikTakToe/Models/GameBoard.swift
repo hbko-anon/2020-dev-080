@@ -12,4 +12,8 @@ class GameBoard: ObservableObject {
     init() {
         self.tiles = Array(0...Self.BoardSize-1).map({_ in GameTile()})
     }
+    
+    func moveAt(position: Int, state: PositionState) {
+        self.tiles[position].position = state
+    }
 }
