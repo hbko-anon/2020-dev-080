@@ -9,21 +9,15 @@ class TikTakToeTests: XCTestCase {
     static let ValidFirstPlayer: PositionState = .playerX
     static let ValidSecondPlayer: PositionState = .playerO
     
-    func testGameTile_Starts_empty() throws {
-        // arrange
-        let tile = GameTile()
-        
-        // assert
-        XCTAssertEqual(tile.position, PositionState.empty, "Game tiles must start empty")
-    }
-
     func testGameBoard_Correct_number_of_starting_tiles() throws {
         // arrange
         let board = GameBoard()
         let boardSize = board.tiles.count
+        let emptyTiles = board.tiles.filter({$0.position == .empty}).count
         
         // assert
         XCTAssertEqual(boardSize, GameRulesProvider.BoardSize, "Board must be initialized with \(GameRulesProvider.BoardSize) tiles")
+        XCTAssertEqual(emptyTiles, boardSize, "All board tiles must be empty when the game starts")
     }
     
     func testGameBoard_Starts_empty() throws {
