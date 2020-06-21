@@ -23,6 +23,14 @@ class TikTakToeTests: XCTestCase {
         XCTAssertEqual(boardSize, GameBoard.BoardSize, "Board must be initialized with \(GameBoard.BoardSize) tiles")
     }
     
+    func testGameBoard_Starts_empty() throws {
+        // arrange
+        let board = GameBoard()
+        
+        // assert
+        XCTAssertEqual(board.isEmpty(), true, "All tiles must be initialized empty")
+    }
+    
     func testGameBoard_Player_moves_at_position() throws {
         // arrange
         let board = GameBoard()
@@ -36,6 +44,19 @@ class TikTakToeTests: XCTestCase {
         
         // assert
         XCTAssertEqual(board.tiles[0].position, moveByPlayer, "Board tiles must be updated after a player move")
+    }
+    
+    func testGameBoard_Not_empty_after_move() throws {
+        // arrange
+        let board = GameBoard()
+        let moveByPlayer = PositionState.playerX
+        let moveAtPosition: Int = 0
+        
+        // act
+        board.moveAt(position: moveAtPosition, state: moveByPlayer)
+        
+        // assert
+        XCTAssertEqual(board.isEmpty(), false, "After a valid move, the board is no longer empty")
     }
     
     func testGameBoard_Player_moves_to_empty_positions_only() throws {
@@ -52,6 +73,21 @@ class TikTakToeTests: XCTestCase {
         board.moveAt(position: secondMoveAtPosition, state: secondMoveByPlayer)
         
         // assert
-        XCTAssertEqual(board.tiles[0].position, firstMoveByPlayer, "Players cannot play on a played position.")
+        XCTAssertEqual(board.tiles[0].position, firstMoveByPlayer, "Players cannot play on a played position")
     }
+    
+    func testGameBoard_PlayerX_always_goes_first() throws {
+        // arrange
+        let board = GameBoard()
+        let firstMoveByPlayer = PositionState.playerO
+        let firstMoveAtPosition: Int = 0
+        board.moveAt(position: firstMoveAtPosition, state: firstMoveByPlayer)
+        
+        // act
+        board.moveAt(position: firstMoveAtPosition, state: firstMoveByPlayer)
+        
+        // assert
+        XCTAssertEqual(board.tiles[0].position, PositionState.empty, "If playerO tries to play first, the board state should remain unchanged")
+    }
+    
 }

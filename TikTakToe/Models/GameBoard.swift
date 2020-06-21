@@ -17,6 +17,14 @@ class GameBoard: ObservableObject {
         if self.tiles[position].position != .empty {
             return
         }
+        if state != .playerX && self.isEmpty() {
+            return
+        }
         self.tiles[position].position = state
+    }
+    
+    /// Returns `true` if the `GameBoard` is currently empty or `false`, if the the `GameBoard` has tiles with state other than `PositionState.empty`
+    func isEmpty() -> Bool {
+        return !self.tiles.contains(where: {$0.position != .empty})
     }
 }
