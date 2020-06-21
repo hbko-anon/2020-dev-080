@@ -14,6 +14,9 @@ class GameBoard: ObservableObject {
     }
     
     func moveAt(position: Int, state: PositionState) {
+        if self.tiles[position].position != .empty {
+            return
+        }
         self.tiles[position].position = state
     }
 }

@@ -37,4 +37,21 @@ class TikTakToeTests: XCTestCase {
         // assert
         XCTAssertEqual(board.tiles[0].position, moveByPlayer, "Board tiles must be updated after a player move")
     }
+    
+    func testGameBoard_Player_moves_to_empty_positions_only() throws {
+        // arrange
+        let board = GameBoard()
+        let firstMoveByPlayer = PositionState.playerA
+        let firstMoveAtPosition: Int = 0
+        board.moveAt(position: firstMoveAtPosition, state: firstMoveByPlayer)
+        
+        let secondMoveByPlayer = PositionState.playerB
+        let secondMoveAtPosition: Int = 0
+        
+        // act
+        board.moveAt(position: secondMoveAtPosition, state: secondMoveByPlayer)
+        
+        // assert
+        XCTAssertEqual(board.tiles[0].position, firstMoveByPlayer, "Players cannot play on a played position.")
+    }
 }
