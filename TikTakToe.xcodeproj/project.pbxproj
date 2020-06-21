@@ -15,6 +15,7 @@
 		08B4D2AC249F31D800DBD709 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08B4D2AA249F31D800DBD709 /* LaunchScreen.storyboard */; };
 		08B4D2B7249F31D800DBD709 /* TikTakToeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B4D2B6249F31D800DBD709 /* TikTakToeTests.swift */; };
 		08B4D2C2249F31D900DBD709 /* TikTakToeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B4D2C1249F31D900DBD709 /* TikTakToeUITests.swift */; };
+		08B4D2D0249F335F00DBD709 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 08B4D2CF249F335F00DBD709 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		08B4D2BD249F31D900DBD709 /* TikTakToeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TikTakToeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		08B4D2C1249F31D900DBD709 /* TikTakToeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikTakToeUITests.swift; sourceTree = "<group>"; };
 		08B4D2C3249F31D900DBD709 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08B4D2CF249F335F00DBD709 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		08B4D293249F31D800DBD709 = {
 			isa = PBXGroup;
 			children = (
+				08B4D2CF249F335F00DBD709 /* README.md */,
 				08B4D29E249F31D800DBD709 /* TikTakToe */,
 				08B4D2B5249F31D800DBD709 /* TikTakToeTests */,
 				08B4D2C0249F31D900DBD709 /* TikTakToeUITests */,
@@ -242,6 +245,7 @@
 			files = (
 				08B4D2AC249F31D800DBD709 /* LaunchScreen.storyboard in Resources */,
 				08B4D2A9249F31D800DBD709 /* Preview Assets.xcassets in Resources */,
+				08B4D2D0249F335F00DBD709 /* README.md in Resources */,
 				08B4D2A6249F31D800DBD709 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

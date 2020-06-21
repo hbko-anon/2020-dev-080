@@ -3,6 +3,7 @@
 import XCTest
 @testable import TikTakToe
 
+/// - Tag: unit_tests
 class TikTakToeTests: XCTestCase {
 
     override func setUpWithError() throws {

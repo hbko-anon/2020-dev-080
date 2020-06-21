@@ -2,6 +2,7 @@
 
 import XCTest
 
+/// - Tag: ui_tests
 class TikTakToeUITests: XCTestCase {
 
     override func setUpWithError() throws {
