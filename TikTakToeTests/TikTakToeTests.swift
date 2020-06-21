@@ -5,6 +5,9 @@ import XCTest
 
 /// - Tag: unit_tests
 class TikTakToeTests: XCTestCase {
+    
+    static let ValidFirstPlayer: PositionState = .playerX
+    static let ValidSecondPlayer: PositionState = .playerO
 
     func testGameTile_Starts_empty() throws {
         // arrange
@@ -34,7 +37,7 @@ class TikTakToeTests: XCTestCase {
     func testGameBoard_Player_moves_at_position() throws {
         // arrange
         let board = GameBoard()
-        let moveByPlayer = PositionState.playerX
+        let moveByPlayer = Self.ValidFirstPlayer
         let moveAtPosition: Int = 0
         
         XCTAssertTrue(board.tiles.count > moveAtPosition - 1, "Player move must be within the bounds of the board")
@@ -43,13 +46,13 @@ class TikTakToeTests: XCTestCase {
         board.moveAt(position: moveAtPosition, state: moveByPlayer)
         
         // assert
-        XCTAssertEqual(board.tiles[0].position, moveByPlayer, "Board tiles must be updated after a player move")
+        XCTAssertEqual(board.tiles[moveAtPosition].position, moveByPlayer, "Board tiles must be updated after a player move")
     }
     
     func testGameBoard_Not_empty_after_move() throws {
         // arrange
         let board = GameBoard()
-        let moveByPlayer = PositionState.playerX
+        let moveByPlayer = Self.ValidFirstPlayer
         let moveAtPosition: Int = 0
         
         // act
@@ -62,18 +65,18 @@ class TikTakToeTests: XCTestCase {
     func testGameBoard_Player_moves_to_empty_positions_only() throws {
         // arrange
         let board = GameBoard()
-        let firstMoveByPlayer = PositionState.playerX
+        let firstMoveByPlayer = Self.ValidFirstPlayer
         let firstMoveAtPosition: Int = 0
         board.moveAt(position: firstMoveAtPosition, state: firstMoveByPlayer)
         
-        let secondMoveByPlayer = PositionState.playerO
-        let secondMoveAtPosition: Int = 0
+        let secondMoveByPlayer = Self.ValidSecondPlayer
+        let secondMoveAtPosition = firstMoveAtPosition
         
         // act
         board.moveAt(position: secondMoveAtPosition, state: secondMoveByPlayer)
         
         // assert
-        XCTAssertEqual(board.tiles[0].position, firstMoveByPlayer, "Players cannot play on a played position")
+        XCTAssertEqual(board.tiles[firstMoveAtPosition].position, firstMoveByPlayer, "Players cannot play on a played position")
     }
     
     func testGameBoard_PlayerX_always_goes_first() throws {
@@ -81,13 +84,12 @@ class TikTakToeTests: XCTestCase {
         let board = GameBoard()
         let firstMoveByPlayer = PositionState.playerO
         let firstMoveAtPosition: Int = 0
-        board.moveAt(position: firstMoveAtPosition, state: firstMoveByPlayer)
+        XCTAssertNotEqual(firstMoveByPlayer, Self.ValidFirstPlayer)
         
         // act
         board.moveAt(position: firstMoveAtPosition, state: firstMoveByPlayer)
         
         // assert
-        XCTAssertEqual(board.tiles[0].position, PositionState.empty, "If playerO tries to play first, the board state should remain unchanged")
+        XCTAssertEqual(board.tiles[firstMoveAtPosition].position, PositionState.empty, "If playerO tries to play first, the board state should remain unchanged")
     }
-    
 }
