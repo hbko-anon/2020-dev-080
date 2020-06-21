@@ -20,7 +20,7 @@ class GameBoard: ObservableObject {
         self.tiles[position].position = state
         self.lastPlayer = state
         
-        let gameWinnerState = GameRulesProvider.isGameOver(tiles: self.tiles)
+        let gameWinnerState = GameRulesProvider.getWinnerState(tiles: self.tiles)
         
         self.gameOver = gameWinnerState != .none
         self.winner = gameWinnerState

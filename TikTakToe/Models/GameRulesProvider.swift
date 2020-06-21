@@ -60,9 +60,13 @@ class GameRulesProvider {
         }
     }
     
-    /// Checks if the game is finished or not.
-    /// - Returns: `true` if the game is over and no more moves are allowed or `false` if a next move is possible
-    static func isGameOver(tiles: [GameTile]) -> GameWinner {
+    /// Determines if the game is still ongoing or it has concluded with a winner or a draw.
+    /// - Returns:
+    ///      `GameWinner.none` if the game is not over,
+    ///      `GameWinner.draw` if the game is finished without a clear winner,
+    ///      `GameWinner.playerX` if the game is finished and playerX is the winner,
+    ///      `GameWinner.playerO` if the game is finished and playerO is the winner
+    static func getWinnerState(tiles: [GameTile]) -> GameWinner {
         
         if let winner = getWinner(tiles: tiles) {
             return winner
