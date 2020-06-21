@@ -2,6 +2,6 @@
 
 import Foundation
 
-class GameTile: ObservableObject {
-    @Published var position: PositionState = .empty
+struct GameTile {
+    let position: PositionState
 }

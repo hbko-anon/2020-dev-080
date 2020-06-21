@@ -10,18 +10,20 @@ class GameBoard: ObservableObject {
     private var lastPlayer: PositionState? = nil
     
     init() {
-        self.tiles = Array(0...GameRulesProvider.BoardSize-1).map({_ in GameTile()})
+        self.tiles = Array(0...GameRulesProvider.BoardSize-1).map({ix in GameTile(position: .empty)})
     }
     
     func moveAt(position: Int, state: PositionState) {
         if !GameRulesProvider.isValid(move: state, at: position, tiles: self.tiles, lastPlayer: self.lastPlayer) {
             return
         }
-        self.tiles[position].position = state
+        self.tiles[position] = GameTile(position: state)
         self.lastPlayer = state
-        
+        self.onPlayerMoved()
+    }
+    
+    private func onPlayerMoved() {
         let gameWinnerState = GameRulesProvider.getWinnerState(tiles: self.tiles)
-        
         self.gameOver = gameWinnerState != .none
         self.winner = gameWinnerState
     }
