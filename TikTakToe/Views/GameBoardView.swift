@@ -10,6 +10,10 @@ struct BoardGridWrapper: View {
         return row * 3 + col
     }
     
+    func tileLabel(row: Int, column: Int) -> Text {
+        return Text(self.tiles[self.position(row, column)].position.localized)
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             ForEach(0..<3) { row in
@@ -18,7 +22,7 @@ struct BoardGridWrapper: View {
                         GameBoardBorderBuilder(row: row, column: column) {
                             GameTileView(tile: self.tiles[self.position(row, column)], action: {
                                 self.onSelectTile(self.position(row, column))
-                            })
+                            }).accessibility(label: self.tileLabel(row: row, column: column))
                         }
                     }
                 }

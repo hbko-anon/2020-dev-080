@@ -4,35 +4,48 @@ import XCTest
 
 /// - Tag: ui_tests
 class TikTakToeUITests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    
+    func testStartsReadyToPlay() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let gameStatus = app.otherElements.containing(.staticText, identifier: "Next move: X").firstMatch
+        XCTAssertTrue(gameStatus.exists, "The game begins announcing the first move")
+        
+        let emptyButtonCount = app.buttons.matching(identifier: "Empty").count
+        XCTAssertEqual(emptyButtonCount, 9, "The game begins with 9 empty tiles for the player to choose from")
     }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
+    
+    func testAnnouncesNextPlayerAfterFirstMove() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let emptySpace = app.buttons.matching(identifier: "Empty").firstMatch
+        emptySpace.tap()
+        
+        
+        let gameStatus = app.otherElements.containing(.staticText, identifier: "Next move: O").firstMatch
+        XCTAssertTrue(gameStatus.exists, "The next player is announced")
+    }
+    
+    func testAllowsThePlayerToReachTheEndOfTheGame() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let myNextMove = app.buttons.matching(identifier: "Empty").firstMatch
+        let gameEndsX = app.otherElements.containing(.staticText, identifier: "Winner player X! 🏆").firstMatch
+        let gameEndsO = app.otherElements.containing(.staticText, identifier: "Winner player X! 🏆").firstMatch
+        let gameEndsDraw = app.otherElements.containing(.staticText, identifier: "Game is a draw!").firstMatch
+        
+        XCTAssertFalse(gameEndsX.exists, "The game can't be over before any player moves")
+        XCTAssertFalse(gameEndsO.exists, "The game can't be over before any player moves")
+        XCTAssertFalse(gameEndsDraw.exists, "The game can't be over before any player moves")
+        
+        
+        while !gameEndsX.exists && !gameEndsO.exists && !gameEndsDraw.exists {
+            myNextMove.tap()
         }
+        
+        XCTAssertTrue(gameEndsX.exists || gameEndsO.exists || gameEndsDraw.exists)
     }
 }

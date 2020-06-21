@@ -11,7 +11,7 @@ enum PositionState {
     var localized: String {
         switch self {
         case .empty:
-            return ""
+            return "Empty"
         case .playerX:
             return "X"
         case .playerO:
