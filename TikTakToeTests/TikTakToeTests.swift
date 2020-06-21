@@ -158,21 +158,28 @@ class TikTakToeTests: XCTestCase {
     func testGameBoard_Gameover_after_9_valid_moves() throws {
         // arrange
         let board = GameBoard()
-        let moves: Int = 9
-        var player = Self.ValidFirstPlayer
         
         // act
-        for ix in (0...moves-1) {
-            board.moveAt(position: ix, state: player)
-            guard let nextPlayer = try? board.alternate(player: player) else {
-                XCTFail("Invalid alternate for player \(player)")
-                return
-            }
-            player = nextPlayer
-        }
+        /*
+         X X O
+         O O X
+         X X O
+        */
+        board.moveAt(position: 0, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 3, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 1, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 4, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 5, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 2, state: Self.ValidSecondPlayer)
+        
+        board.moveAt(position: 7, state: Self.ValidFirstPlayer)
+        board.moveAt(position: 8, state: Self.ValidSecondPlayer)
+        board.moveAt(position: 6, state: Self.ValidFirstPlayer)
         
         // assert
-        XCTAssertTrue(board.gameOver, "After \(moves) valid moves the game must be over.")
+        XCTAssertTrue(board.gameOver, "After 9 valid moves the game must be over.")
     }
     
     func testGameBoard_Game_not_over_after_4_valid_moves() throws {
