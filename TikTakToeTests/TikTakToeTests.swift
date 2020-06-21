@@ -23,7 +23,7 @@ class TikTakToeTests: XCTestCase {
         let boardSize = board.tiles.count
         
         // assert
-        XCTAssertEqual(boardSize, GameBoard.BoardSize, "Board must be initialized with \(GameBoard.BoardSize) tiles")
+        XCTAssertEqual(boardSize, GameRulesProvider.BoardSize, "Board must be initialized with \(GameRulesProvider.BoardSize) tiles")
     }
     
     func testGameBoard_Starts_empty() throws {
